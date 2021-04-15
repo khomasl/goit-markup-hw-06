@@ -295,23 +295,22 @@ ul {
 
   opacity: 1;
 
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1);
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .backdrop.is-hidden {
   visibility: hidden;
   opacity: 0;
   pointer-events: none; /*помагает пропустить события через скрытый бэкдроп*/
 
-  transform: scale(0);
+  /* transform: scale(0); */
   /* transition: transform 5250ms cubic-bezier(0.4, 0, 0.2, 1); */
 }
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); */
 
   /* min-width: 33%;
   min-height: 33%; */
@@ -321,11 +320,14 @@ ul {
   background-color: var(--hero-text-color);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-
+  transform: translate(-50%, -50%) scale(1);
   /* transform: scale(1); */
-  /* transition: transform 5250ms cubic-bezier(0.4, 0, 0.2, 1); */
-  transition: opacity 5250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
 .btn-modal-close {
   /* display: block; */
   position: absolute;
@@ -339,12 +341,13 @@ ul {
   background: var(--hero-text-color);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  /* box-sizing: border-box; */
-
-  /* transform: scale(0); */
 }
 .btn-modal-close .icon {
   margin: 5px;
+}
+.btn-modal-close:hover,
+.btn-modal-close:focus {
+  fill: var(--accent-color);
 }
 /* Кнопки портфолио */
 .btn-portfolio {
@@ -602,9 +605,7 @@ ul {
 .footer .widget-block:last-child {
   flex-basis: calc(50% - 15px);
 }
-.footer .addr {
-  /* width: calc(100% / 12 * var(--grid-item)); */
-}
+
 .footer-logo-title {
   color: var(--hero-text-color);
 }
@@ -626,12 +627,14 @@ ul {
 .addr-item:not(:last-child) {
   margin-bottom: 8px;
 }
-.footer .social-links {
+.footer .social-links,
+.footer .subscription {
   /* margin-top: 12px; */
   padding-top: 12px;
   /* width: calc(100% / 12 * var(--grid-item)); */
 }
-.social-links .section-title {
+.social-links .section-title,
+.subscription .section-title {
   margin-bottom: 20px;
   text-align: left;
   font-weight: bold;
@@ -654,4 +657,193 @@ ul {
 .footer .social-icons-link:hover,
 .footer .social-icons-link:focus {
   background-color: var(--accent-color);
+}
+
+/* footer-form */
+
+.subscription form {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.subscription input {
+  width: 358px;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
+  border-radius: 4px;
+  background-color: var(--hero-background-color);
+}
+.subscription input,
+.subscription textarea {
+  padding: 14px;
+  padding-left: 16px;
+
+  font-size: 16px;
+
+  line-height: 1.25;
+  display: flex;
+  /* align-items: center; */
+  color: var(--primary-text-color);
+  /* color: rgba(255, 255, 255, 0.6); */
+}
+.subscription textarea {
+  resize: none;
+}
+.subscription label {
+  flex-basis: calc(((100%) / 6) * 4 - 22px);
+  font-weight: 700;
+  line-height: 1.14;
+  text-transform: uppercase;
+  color: var(--hero-text-color);
+}
+
+.subscription button,
+.modal form button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: calc(((100% - 5 * 15px) / 3) * 1 + 35px);
+
+  padding: 0;
+  border: 0;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.87;
+  /* width: 200px; */
+  height: 50px;
+
+  letter-spacing: 0.06em;
+
+  color: var(--hero-text-color);
+
+  background: var(--accent-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+.subscription .icon {
+  margin-left: 10px;
+}
+
+/* modal form */
+.modal .modal-form {
+  display: block;
+  padding: 40px;
+}
+.modal-form p {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: var(--primary-text-color);
+}
+.modal label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: 0.01em;
+  color: var(--secondary-text-color);
+}
+.modal .form-icon {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 29px;
+  left: 12px;
+
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal input:focus + .form-icon {
+  fill: var(--accent-color);
+}
+.modal input {
+  padding: 12px;
+  padding-left: 42px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  box-sizing: border-box;
+  border-radius: 4px;
+  /* font-size: 12px; */
+  line-height: 1.14;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal input:focus {
+  border-color: var(--accent-color);
+}
+.modal .comment textarea {
+  margin-top: 4px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  height: 120px;
+  line-height: 1.14;
+  letter-spacing: 0.01em;
+
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  box-sizing: border-box;
+  border-radius: 4px;
+  resize: none;
+}
+.comment textarea > placeholder {
+  color: #2196f3;
+}
+.modal .checkbox {
+  display: block;
+
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+  line-height: 1.71;
+  color: var(--secondary-text-color);
+}
+
+.checkbox .check-input {
+  position: absolute;
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none; */
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  padding: 0;
+}
+.checkbox .icon {
+  position: relative;
+  top: 3px;
+  margin-right: 4px;
+
+  border: 2px;
+  border-style: solid;
+  border-color: var(--primary-text-color);
+  border-radius: 2px;
+  fill: var(--hero-text-color);
+
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.checkbox .check-input:focus + .icon {
+  border-color: var(--accent-color);
+}
+.modal .check-input:checked + .icon {
+  fill: var(--accent-color);
+
+  border: 0;
+}
+.modal-form .submit {
+  padding: 10px 55px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.modal-form .checkbox .agreement {
+  color: var(--accent-color);
 }
